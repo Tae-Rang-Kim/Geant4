@@ -1,0 +1,11 @@
+1. git pull
+~~~
+2. git add NAME_OF_FIXED_FILE (or git add .)
+3. git commit -m "write any comments."
+4. git push
+
+git user name: Tae-Rang-Kim
+I have uploaded the token of this user. However, GITHUB saved my codes. 
+If I have uploaded the token of this, this code would be vulnerable to unidentified users...
+Plz, be careful.
+
