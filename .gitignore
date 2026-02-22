@@ -1,0 +1,21 @@
+# 1. 빌드 폴더 (가장 용량이 크고 찌꺼기가 많은 곳)
+build/
+
+# 2. CMake 자동 생성 파일들
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+
+# 3. 컴파일된 오브젝트 및 라이브러리 파일
+*.o
+*.a
+*.so
+
+# 4. 시뮬레이션 결과 데이터 (용량 폭탄 주범)
+*.root
+*.csv
+
+# 5. 기타 OS 생성 파일
+.DS_Store
+Thumbs.db

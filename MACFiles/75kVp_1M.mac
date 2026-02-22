@@ -1,0 +1,12 @@
+/run/initialize
+
+/gun/particle gamma
+/gun/energy 45 keV
+
+/run/printProgress 100000
+
+/vis/disable
+
+/run/beamOn 1000000
+
+exit
