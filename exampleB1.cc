@@ -38,6 +38,7 @@
 
 #include "G4UImanager.hh"
 #include "QBBC.hh"
+#include "G4EmLivermorePhysics.hh"
 
 #include "G4VisExecutive.hh"
 #include "G4UIExecutive.hh"
@@ -76,6 +77,7 @@ int main(int argc,char** argv)
 
   // Physics list
   G4VModularPhysicsList* physicsList = new QBBC;
+  physicsList->ReplacePhysics(new G4EmLivermorePhysics()); // Livermore model
   physicsList->SetVerboseLevel(1);
   runManager->SetUserInitialization(physicsList);
   //runManager -> SetUserAction(new B1RunAction());

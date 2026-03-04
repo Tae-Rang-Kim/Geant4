@@ -109,6 +109,12 @@ void B1PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   // The Volume of detector is changed. Thus, z0 should be changed too.
   G4double z0 = -55. * cm; 
   
+  G4int eventID = anEvent->GetEventID();
+
+  //G4double currentEnergy = 50.0 * keV + (eventID / 1000 * 1.0 * keV);
+  G4double currentEnergy = 30.0 * keV;
+  fParticleGun->SetParticleEnergy(currentEnergy);
+  
   fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
 
   fParticleGun->GeneratePrimaryVertex(anEvent);

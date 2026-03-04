@@ -54,7 +54,7 @@ B1EventAction::~B1EventAction()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void B1EventAction::BeginOfEventAction(const G4Event*)
+void B1EventAction::BeginOfEventAction(const G4Event* event)
 {    
   fEdep_50keV = 0.;
   fEdep_60keV = 0.;
@@ -65,7 +65,7 @@ void B1EventAction::BeginOfEventAction(const G4Event*)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void B1EventAction::EndOfEventAction(const G4Event*)
+void B1EventAction::EndOfEventAction(const G4Event* event)
 {   
   // accumulate statistics in run action
   fRunAction->AddEdep_50keV(fEdep_50keV);
@@ -73,7 +73,15 @@ void B1EventAction::EndOfEventAction(const G4Event*)
   fRunAction->AddEdep_75keV(fEdep_75keV);
   fRunAction->AddEdep_100keV(fEdep_100keV);
   fRunAction->AddEdep_DepE(fEdep_DepE);
+  
+  //G4double initialEnergy = 50.0 + (event->GetEventID()/1000*1.0);
+  G4double initialEnergy = 30; 
 
+  auto analysisManager = G4AnalysisManager::Instance();
+//  analysisManager->FillNtupleDColumn(0, initialEnergy);
+//  analysisManager->FillNtupleDColumn(1, fEdep_DepE);
+  analysisManager->FillNtupleDColumn(0, fEdep_DepE); //You should make a different variable.
+  analysisManager->AddNtupleRow();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

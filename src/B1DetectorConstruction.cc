@@ -213,10 +213,9 @@ G4VPhysicalVolume* B1DetectorConstruction::Construct()
   //
   //
   //
-  //G4Material* LS = nist->FindOrBuildMaterial("G4_WATER");
+  G4Material* LS = nist->FindOrBuildMaterial("G4_WATER");
   //
   //
-  G4Material* LS = MakeIohexol70Water30();
   //
   G4Box* solidC4_LS =    
     new G4Box("C4_LS",                       //its name
@@ -235,7 +234,7 @@ G4VPhysicalVolume* B1DetectorConstruction::Construct()
                     false,                   //no boolean operation
                     0,                       //copy number
                     checkOverlaps);          //overlaps checking
-  
+
   // Detector
   //
   //

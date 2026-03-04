@@ -106,24 +106,21 @@ void B1RunAction::BeginOfRunAction(const G4Run*)
   accumulableManager->Reset();
   /////////////////////////////////////////////////////////////////
   auto analysisManager = G4AnalysisManager::Instance();
-  analysisManager -> OpenFile("/home/kim_tae_rang/ResultOfB1.root");
-  analysisManager -> CreateNtuple("Result1", "hist");
-  analysisManager -> CreateNtupleFColumn("Track_Deposit_E");
-  analysisManager -> CreateNtupleFColumn("Track_Lengnth");
-  analysisManager -> CreateNtupleFColumn("Track_Kinetic_E");
-  analysisManager -> CreateNtupleFColumn("x");
-  analysisManager -> CreateNtupleFColumn("y");
-  analysisManager -> CreateNtupleFColumn("z");
-  analysisManager -> CreateNtupleIColumn("Track_ID");
-  analysisManager -> CreateNtupleIColumn("Event_ID"); // T.R.Kim added. 
+  analysisManager -> SetDefaultFileType("root");
+  analysisManager -> OpenFile("ResultOfB1.root");
+  analysisManager -> CreateNtuple("EnergyData", "Initial vs Deposited");
+  analysisManager -> CreateNtupleDColumn("InitialEnergy");
+  analysisManager -> CreateNtupleDColumn("DepositedEnergy");
   analysisManager -> FinishNtuple();
+ 
+G4bool success = analysisManager->OpenFile("ResultOfB1.root");
 
-  analysisManager -> CreateNtuple("Result2", "hitcounts");
-  analysisManager -> CreateNtupleIColumn("Entrance Counts of Primary particles");
-  analysisManager -> CreateNtupleIColumn("Entrance Counts of All particles");
-  analysisManager -> CreateNtupleIColumn("Exit Counts of All particles");
-  analysisManager -> CreateNtupleFColumn("Energy deposited in the envelope");
-  analysisManager -> FinishNtuple();
+if (success) {
+    G4cout << ">>> [LOG] 파일 열기 성공!" << G4endl;
+} else {
+    G4cout << ">>> [LOG] 파일 열기 실패! 경로를 다시 확인하세요." << G4endl;
+}
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -139,7 +136,7 @@ void B1RunAction::EndOfRunAction(const G4Run* run)
 
   // Compute dose = total energy deposit in a run and its variance
   //
-  G4double edep_50keV  = fEdep_50keV.GetValue();
+  G4double edep_50keV = fEdep_50keV.GetValue();
   G4double edep_60keV = fEdep_60keV.GetValue();
   G4double edep_75keV = fEdep_75keV.GetValue();
   G4double edep_100keV = fEdep_100keV.GetValue();
@@ -208,6 +205,7 @@ void B1RunAction::EndOfRunAction(const G4Run* run)
      << G4endl;
   
   /////////////////////////////////////////////////////////////////
+  G4cout << "Is there someone being alive?" << G4endl;
   auto analysisManager = G4AnalysisManager::Instance();
   analysisManager -> Write();  
   analysisManager -> CloseFile();
